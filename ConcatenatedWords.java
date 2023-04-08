@@ -1,10 +1,26 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * https://leetcode.com/problems/concatenated-words/
  */
 public class ConcatenatedWords {
+
+    public static void main(String[] args) {
+        String words[] = new String[] { "cat", "cats", "catsdogcats", "dog", "dogcatsdog", "hippopotamuses", "rat",
+                "ratcatdogcat" };
+
+        ConcatenatedWords sol = new ConcatenatedWords();
+        List<String> concatenatedStrings = sol.findAllConcatenatedWordsInADict(words);
+
+        for (String string : concatenatedStrings) {
+            System.out.println(string);
+        }
+    }
 
     public List<String> findAllConcatenatedWordsInADict(String[] words) {
         Trie root = new Trie();
@@ -15,11 +31,13 @@ public class ConcatenatedWords {
 
         List<String> concatenatedWords = new ArrayList<>();
 
-        for (String string : words) {
-            if (root.isConcatenationPossible(string, root)) {
-                concatenatedWords.add(string);
+        Arrays.sort(words, Comparator.comparingInt(String::length));
+        for (int i = (words.length - 1); i >= 0; i--) {
+            if (root.isConcatenationPossible(words[i], root, true)) {
+                concatenatedWords.add(words[i]);
             }
         }
+
         return concatenatedWords;
     }
 
@@ -27,8 +45,14 @@ public class ConcatenatedWords {
 
         final Trie subChild[] = new Trie[26];
         boolean isEnd = false;
+        final Set<String> wordSet = new HashSet<>();
+
+        public Trie() {
+            wordSet.clear();
+        }
 
         public void insert(String word) {
+            wordSet.add(word);
             final int wordLength = word.length();
             Trie currentRoot = this;
 
@@ -47,23 +71,38 @@ public class ConcatenatedWords {
             currentRoot.isEnd = true;
         }
 
-        public boolean isConcatenationPossible(String word, Trie root) {
-            boolean concatenationAvailable = false;
+        public boolean isConcatenationPossible(String word, Trie root, boolean initialRecursion) {
+
             int wordLength = word.length();
             Trie currentRoot = root;
 
             for (int i = 0; i < wordLength; i++) {
                 Trie subChildReference = currentRoot.subChild[word.charAt(i) - 'a'];
+
                 if (subChildReference != null) {
                     if (subChildReference.isEnd == true) {
-                        if (isConcatenationPossible(word.substring(i + 1), root) == true) {
+                        if (i + 1 == wordLength) {
+                            if (initialRecursion) {
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        } else if (wordSet.contains(word.substring(i + 1))) {
+                            return true;
+                        } else if (isConcatenationPossible(word.substring(i + 1), root, false)) {
+                            wordSet.add(word.substring(i + 1));
                             return true;
                         }
                     }
+                    currentRoot = subChildReference;
+                } else
+
+                {
+                    return false;
                 }
             }
 
-            return concatenationAvailable;
+            return false;
         }
     }
 }

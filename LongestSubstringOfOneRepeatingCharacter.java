@@ -1,20 +1,61 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.TreeMap;
 
 /**
  * https://leetcode.com/problems/longest-substring-of-one-repeating-character/
- * 
- * At this point I am getting Time Limit exceeded, and only 47 out of 57
- * testcases
- * are passing, thus it is evident that we need to update the algorithm.
- * 
+ *
+ * <p>At this point my algorithm is passing 50 out of 54 test cases, but it's failing for the current test case.
  */
 public class LongestSubstringOfOneRepeatingCharacter {
     public static void main(String[] args) {
         LongestSubstringOfOneRepeatingCharacter obj = new LongestSubstringOfOneRepeatingCharacter();
         int a[] = obj.longestRepeating(
-                "iiiiiccmmmmmmmmggg",
-                "i", new int[] { 0 });
+                "iiiiiccmmmmmmmmggghhhhhhhbbzzzzzzztttaaaagggcccccccccccccckkkkkkkfuuuuuuuuiiiiiiiqqqqqwwwwwwwddddrvvvvttttttttkkkkkkfffddmmmmmxxxxxxxxmmmmmeeeeeefffssssssissxddddddpppppppzzzccnzzzxxxxxxxrrrrmmpppvvvvvvuuuuuuussssssssyyyynnnnnnnnffffoovvvvvvvvqqqqqqqkkkdddddddkppppppt",
+                "gbbbbbbbbbbbbbbbbqccccccccccddddddddddddddddddddooooooooooooooggggggggggggggffffffffffffffffffffgggggggggggggggghhhiiiiiwwwwwwbbbbbbbbbbbbbbbbbbbbbbbbzzzzzzzzzzzzzzzzxxxxxxxxxxxxxxxxxxxxxxcccccccccccfffffffffffffffffffffffjjjjjjjjjjjjjjjjjjjjjjjgggggggggggggggggggghhhhhhhhhiiiiiiiiiiiiiiiiiyyyyyyypppppppppppppppppppttttttttttttttttttttbbbbbbbbbbfffffffffffffffffvvvvvvvvvvvkkkkkkkkkkkkkkkkkkkkkoooooooooooooooeeeeeeeeeeeeeeeeeeeeeeeecccccccccccccccllllllllllllllllllllcccccccccccccccvvvvvvvvvvvvvvvvvvvvvvdddddiiiiiiiiiiiiiiiiiiiimmmmmmmmmmmmmmmmmoooollllllllllllleeeeeeeeeeeerrrrrrrrggggggggggggggggggggggkkkkkkkkkkkkkkkkkkkkkkkkkkoooovvvvvvvvvvvvuuuugggggggggggggggggggglllllllllllliiiiiiiiiiiiiiiiiiiiiissssssssssssswwwwwwwwwwwwwwwwwnnnnnnnnnwwwwwwwwwwgggggggggggggggggggqqqqqqllllllllllllllllllllllyyyyyyyyyyyyyyyyyyyyyyyyiiiiiiiiiiiiiiiiiiiiiikkkkkkkkkkkkkkkkkkkkkkkkffaaaaaaaaaaaaaaaaaaas",
+                new int[]{130, 69, 76, 73, 71, 67, 81, 70, 74, 68, 75, 72, 78, 82, 80, 79, 77, 225, 222, 217, 215, 218,
+                        219, 224, 221, 220, 216, 223, 117, 115, 129, 127, 121, 134, 124, 122, 123, 131, 128, 118, 116,
+                        126, 130, 133, 120, 125, 119, 132, 195, 196, 184, 190, 193, 186, 189, 188, 187, 183, 191, 192,
+                        185, 194, 93, 96, 95, 99, 89, 88, 97, 87, 90, 92, 98, 94, 86, 91, 95, 97, 101, 88, 106, 105, 90,
+                        102, 96, 104, 94, 87, 99, 100, 91, 103, 92, 89, 98, 93, 89, 92, 91, 81, 84, 79, 85, 93, 87, 82,
+                        90, 78, 83, 86, 80, 88, 81, 83, 82, 74, 75, 73, 72, 71, 206, 208, 210, 205, 207, 209, 135, 118,
+                        119, 127, 129, 128, 122, 136, 117, 123, 134, 126, 120, 133, 125, 115, 132, 116, 131, 137, 114,
+                        124, 121, 130, 142, 143, 140, 147, 136, 138, 133, 135, 148, 146, 145, 144, 141, 139, 134, 137,
+                        252, 254, 259, 244, 262, 248, 261, 249, 250, 247, 243, 264, 253, 251, 263, 257, 260, 245, 246,
+                        255, 258, 256, 154, 158, 152, 155, 151, 159, 156, 153, 157, 150, 160, 61, 55, 59, 62, 69, 77,
+                        71, 57, 58, 67, 73, 76, 56, 74, 60, 70, 72, 65, 63, 66, 68, 64, 75, 240, 235, 229, 245, 224,
+                        238, 237, 236, 227, 234, 231, 241, 239, 230, 244, 226, 242, 246, 233, 232, 225, 243, 228, 78,
+                        74, 79, 81, 75, 82, 73, 77, 76, 84, 66, 68, 65, 80, 70, 72, 69, 71, 67, 83, 6, 10, 9, 7, 5, 3,
+                        4, 8, 11, 28, 42, 29, 32, 30, 31, 39, 43, 38, 40, 33, 35, 41, 34, 44, 36, 37, 116, 119, 117,
+                        118, 115, 120, 121, 69, 67, 76, 85, 81, 78, 82, 79, 77, 73, 84, 74, 72, 70, 71, 68, 83, 75, 80,
+                        89, 80, 87, 79, 81, 94, 86, 88, 78, 91, 84, 83, 85, 95, 92, 93, 96, 82, 90, 77, 193, 198, 190,
+                        199, 197, 195, 194, 192, 191, 196, 181, 178, 182, 186, 179, 183, 174, 187, 176, 188, 184, 180,
+                        175, 185, 190, 177, 189, 25, 29, 31, 28, 26, 27, 33, 30, 34, 24, 32, 211, 215, 216, 202, 218,
+                        209, 207, 213, 201, 206, 205, 217, 221, 212, 214, 219, 220, 210, 203, 208, 204, 139, 132, 127,
+                        131, 138, 129, 137, 134, 133, 126, 128, 135, 136, 140, 130, 102, 95, 94, 106, 111, 103, 100, 93,
+                        108, 113, 92, 99, 109, 105, 97, 98, 101, 112, 114, 110, 104, 107, 96, 91, 42, 51, 44, 45, 39,
+                        41, 46, 47, 48, 49, 40, 50, 52, 53, 43, 243, 245, 247, 242, 248, 234, 231, 232, 230, 239, 233,
+                        240, 244, 249, 238, 237, 241, 235, 246, 236, 75, 72, 77, 70, 69, 67, 66, 73, 71, 78, 76, 80, 68,
+                        74, 79, 42, 29, 45, 30, 40, 34, 32, 26, 37, 44, 39, 38, 33, 31, 41, 24, 43, 28, 25, 36, 35, 27,
+                        5, 4, 3, 2, 1, 236, 240, 233, 229, 238, 230, 224, 227, 239, 228, 231, 234, 237, 222, 225, 235,
+                        223, 226, 232, 221, 176, 173, 181, 175, 177, 182, 183, 189, 179, 186, 187, 184, 178, 174, 180,
+                        185, 188, 197, 195, 198, 196, 69, 80, 68, 73, 71, 76, 75, 70, 78, 74, 72, 79, 77, 204, 201, 199,
+                        200, 207, 203, 209, 206, 202, 205, 210, 208, 195, 194, 196, 192, 190, 191, 189, 193, 170, 188,
+                        176, 187, 175, 182, 169, 177, 174, 179, 171, 180, 181, 183, 172, 173, 178, 189, 185, 168, 184,
+                        186, 134, 132, 142, 154, 153, 131, 138, 148, 147, 140, 133, 155, 141, 137, 143, 151, 139, 156,
+                        152, 136, 144, 146, 145, 150, 149, 135, 154, 156, 155, 157, 107, 105, 104, 102, 108, 110, 113,
+                        106, 103, 111, 112, 109, 32, 30, 29, 31, 45, 35, 42, 46, 47, 43, 48, 33, 36, 52, 51, 38, 49, 39,
+                        34, 44, 41, 37, 50, 40, 87, 91, 90, 94, 96, 85, 95, 93, 89, 86, 88, 92, 253, 243, 237, 248, 242,
+                        256, 258, 247, 254, 239, 255, 246, 251, 252, 241, 244, 240, 249, 257, 238, 245, 250, 252, 253,
+                        246, 251, 242, 244, 247, 249, 248, 250, 245, 243, 241, 113, 114, 108, 123, 117, 115, 111, 112,
+                        118, 119, 121, 122, 109, 110, 120, 116, 107, 150, 148, 149, 146, 152, 154, 147, 151, 153, 95,
+                        88, 87, 93, 92, 91, 94, 90, 96, 89, 221, 219, 217, 228, 232, 234, 225, 218, 227, 233, 223, 224,
+                        230, 231, 229, 222, 216, 226, 220, 123, 122, 124, 127, 125, 126, 95, 106, 92, 105, 90, 89, 88,
+                        86, 99, 100, 103, 94, 102, 98, 96, 101, 85, 87, 97, 91, 104, 93, 250, 232, 230, 236, 238, 246,
+                        247, 249, 243, 240, 228, 234, 239, 235, 227, 231, 242, 248, 237, 233, 244, 245, 229, 241, 38,
+                        42, 44, 51, 55, 47, 52, 50, 39, 54, 41, 46, 53, 40, 45, 57, 58, 43, 49, 59, 48, 56, 256, 237,
+                        238, 236, 239, 258, 252, 248, 253, 246, 249, 250, 245, 257, 247, 251, 254, 235, 243, 241, 240,
+                        244, 255, 242, 123, 122, 172, 183, 174, 179, 186, 169, 168, 175, 182, 176, 171, 178, 173, 184,
+                        170, 181, 180, 177, 185, 195});
+        //correct output should be [1,1,1,1,1,1,1,1]
 
         for (int i : a) {
             System.out.print(i + ",");
@@ -22,60 +63,167 @@ public class LongestSubstringOfOneRepeatingCharacter {
     }
 
     public int[] longestRepeating(String s, String queryCharacters, int[] queryIndices) {
-        List<Integer> longestLengths = new ArrayList<>();
+        s = "0" + s + "0"; // adding a character "0" to avoid lots of if and else
 
-        StringBuilder string = new StringBuilder(s);
+        int[] longestLengths = new int[queryIndices.length];
 
         for (int i = 0; i < queryIndices.length; i++) {
-            string.setCharAt(queryIndices[i], queryCharacters.charAt(i));
-            longestLengths.add(getLengthOfLongestSubstringWithOneRepeatingCharacter(string.toString()));
+            queryIndices[i]++;
         }
 
-        return longestLengths.stream().mapToInt(Integer::intValue).toArray();
+        final TreeMap<Integer, Integer> startToEndIndices = new TreeMap<>();
+        final TreeMap<Integer, Integer> lengthToRangeCount = new TreeMap<>();
+
+        int stringLength = s.length(); // remember this length has 2 extra characters that we added
+        char[] inputStringArray = s.toCharArray();
+
+        for (int i = 0, j = 1; j <= stringLength; j++) {
+            if (j == stringLength || inputStringArray[i] != inputStringArray[j]) {
+                startToEndIndices.put(i, j - 1);
+
+                lengthToRangeCount.put(j - i, lengthToRangeCount.getOrDefault(j - i, 0) + 1);
+                i = j;
+            }
+        }
+
+        for (int i = 0; i < queryIndices.length; i++) {
+            if (i > 0 && inputStringArray[queryIndices[i]] == queryCharacters.charAt(i)) {
+                longestLengths[i] = longestLengths[i - 1];
+            } else {
+                longestLengths[i] =
+                        getLengthOfLongestSubstringWithOneRepeatingCharacter(inputStringArray, startToEndIndices,
+                                lengthToRangeCount, queryIndices[i], queryCharacters.charAt(i));
+            }
+            inputStringArray[queryIndices[i]] = queryCharacters.charAt(i);
+        }
+
+        return longestLengths;
     }
 
-    public int getLengthOfLongestSubstringWithOneRepeatingCharacter(String s) {
-        if (s == null) {
-            return 0;
-        }
-        int stringLength = s.length();
+    public int getLengthOfLongestSubstringWithOneRepeatingCharacter(char[] string,
+                                                                    final TreeMap<Integer, Integer> startToEndIndices,
+                                                                    final TreeMap<Integer, Integer> lengthToRangeCount,
+                                                                    final int indexToReplace, final char newCharacter) {
+        // string will never be empty, and the character that is getting replaced is different from
+        // current character
 
-        if (stringLength == 1) {
-            return 1;
-        }
+        final char previousCharacter = string[indexToReplace - 1];
+        final char nextCharacter = string[indexToReplace + 1];
+        final char oldCharacter = string[indexToReplace];
 
-        int longestRepeatingLength = 1;
-        char previousCharacter = s.charAt(0);
-        int currentLength = 1;
+        if (previousCharacter != nextCharacter) {
 
-        for (int i = 1; i < stringLength; i++) {
-            if (previousCharacter == s.charAt(i)) {
-                currentLength++;
-            } else {
-                if (currentLength >= longestRepeatingLength) {
-                    longestRepeatingLength = currentLength;
-                }
-                currentLength = 1;
+            if (newCharacter == previousCharacter) {
+                // old sequence "..a*c.." and new sequence "..aac.."
+                int startIndexOfLeftSequence = startToEndIndices.floorKey(indexToReplace - 1);
+                startToEndIndices.put(startIndexOfLeftSequence, indexToReplace);
+                int oldLengthOfLeftSequence = indexToReplace - startIndexOfLeftSequence;
+                int newLengthOfLeftSequence = oldLengthOfLeftSequence + 1;
+                lengthToRangeCount.put(oldLengthOfLeftSequence, lengthToRangeCount.get(oldLengthOfLeftSequence) - 1);
+                lengthToRangeCount.put(newLengthOfLeftSequence,
+                        lengthToRangeCount.getOrDefault(newLengthOfLeftSequence, 0) + 1);
             }
-            previousCharacter = s.charAt(i);
+
+            if (newCharacter == nextCharacter) {
+                // old sequence "..a*c.." and new sequence "..acc.."
+                int endIndexOfRightSequence = startToEndIndices.get(indexToReplace + 1);
+                startToEndIndices.remove(indexToReplace + 1);
+                startToEndIndices.put(indexToReplace, endIndexOfRightSequence);
+                int oldLengthOfRightSequence = endIndexOfRightSequence - indexToReplace;
+                int newLengthOfRightSequence = oldLengthOfRightSequence + 1;
+                lengthToRangeCount.put(oldLengthOfRightSequence, lengthToRangeCount.get(oldLengthOfRightSequence) - 1);
+                lengthToRangeCount.put(newLengthOfRightSequence,
+                        lengthToRangeCount.getOrDefault(newLengthOfRightSequence, 0) + 1);
+            }
+
+            if (oldCharacter == previousCharacter) {
+                // old sequence "..aac.." and new sequence is "..abc.."
+                int startIndexOfLeftSequence = startToEndIndices.floorKey(indexToReplace - 1);
+                startToEndIndices.put(startIndexOfLeftSequence, indexToReplace - 1);
+
+                if (newCharacter != nextCharacter) {
+                    startToEndIndices.put(indexToReplace, indexToReplace);
+                }
+
+                int oldLengthOfLeftSequence = indexToReplace - startIndexOfLeftSequence + 1;
+                int newLengthOfLeftSequence = oldLengthOfLeftSequence - 1;
+                lengthToRangeCount.put(oldLengthOfLeftSequence, lengthToRangeCount.get(oldLengthOfLeftSequence) - 1);
+                lengthToRangeCount.put(newLengthOfLeftSequence,
+                        lengthToRangeCount.getOrDefault(newLengthOfLeftSequence, 0) + 1);
+            }
+            if (oldCharacter == nextCharacter) {
+                // old sequence "..acc.." new sequence "..abc.."
+                int lastIndexOfRightSequence = startToEndIndices.get(startToEndIndices.floorKey(indexToReplace));
+                startToEndIndices.remove(indexToReplace);
+                startToEndIndices.put(indexToReplace + 1, lastIndexOfRightSequence);
+
+                if (newCharacter != previousCharacter) {
+                    startToEndIndices.put(indexToReplace, indexToReplace);
+                }
+
+                int oldLengthOfRightSequence = lastIndexOfRightSequence - indexToReplace + 1;
+                int newLengthOfRightSequence = oldLengthOfRightSequence - 1;
+                lengthToRangeCount.put(oldLengthOfRightSequence, lengthToRangeCount.get(oldLengthOfRightSequence) - 1);
+                lengthToRangeCount.put(newLengthOfRightSequence,
+                        lengthToRangeCount.getOrDefault(newLengthOfRightSequence, 0) + 1);
+            }
+
+        } else {
+            // sequence is like "..a*a.."
+            if (newCharacter == previousCharacter) {
+                // old sequence was "..a*a.." where "*" is any character other than "a" new sequence will combine left
+                // and right sequence "..aaa.."
+                int startIndexOfLeftSequence = startToEndIndices.floorKey(indexToReplace - 1);
+                int endIndexOfRightSequence = startToEndIndices.get(startToEndIndices.floorKey(indexToReplace + 1));
+
+                startToEndIndices.remove(startIndexOfLeftSequence);
+                startToEndIndices.remove(indexToReplace);
+                startToEndIndices.remove(startToEndIndices.floorKey(indexToReplace + 1));
+                startToEndIndices.put(startIndexOfLeftSequence, endIndexOfRightSequence);
+
+                lengthToRangeCount.put(indexToReplace - startIndexOfLeftSequence,
+                        lengthToRangeCount.get(indexToReplace - startIndexOfLeftSequence) - 1);
+                lengthToRangeCount.put(endIndexOfRightSequence - indexToReplace,
+                        lengthToRangeCount.get(endIndexOfRightSequence - indexToReplace) - 1);
+                lengthToRangeCount.put(endIndexOfRightSequence - startIndexOfLeftSequence + 1,
+                        lengthToRangeCount.getOrDefault(endIndexOfRightSequence - startIndexOfLeftSequence + 1, 0) + 1);
+            } else if (oldCharacter == previousCharacter) {
+                // old sequence was "..aaa.." new sequence will be "..aba.."
+                int startIndexOfOldSequence = startToEndIndices.floorKey(indexToReplace);
+                int endIndexOfOldSequence = startToEndIndices.get(startIndexOfOldSequence);
+
+                startToEndIndices.remove(startIndexOfOldSequence);
+                startToEndIndices.put(startIndexOfOldSequence, indexToReplace - 1);
+                startToEndIndices.put(indexToReplace, indexToReplace);
+                startToEndIndices.put(indexToReplace + 1, endIndexOfOldSequence);
+
+                lengthToRangeCount.put(endIndexOfOldSequence - startIndexOfOldSequence + 1,
+                        lengthToRangeCount.get(endIndexOfOldSequence - startIndexOfOldSequence + 1) - 1);
+                lengthToRangeCount.put(indexToReplace - startIndexOfOldSequence,
+                        lengthToRangeCount.getOrDefault(indexToReplace - startIndexOfOldSequence, 0) + 1);
+                lengthToRangeCount.put(1, lengthToRangeCount.getOrDefault(1, 0) + 1);
+                lengthToRangeCount.put(endIndexOfOldSequence - indexToReplace,
+                        lengthToRangeCount.getOrDefault(endIndexOfOldSequence - indexToReplace, 0) + 1);
+            }
         }
 
-        if (currentLength > longestRepeatingLength) {
-            longestRepeatingLength = currentLength;
+        while (lengthToRangeCount.get(lengthToRangeCount.lastKey()) <= 0) {
+            lengthToRangeCount.remove(lengthToRangeCount.lastKey());
         }
-        return longestRepeatingLength;
+
+        return lengthToRangeCount.lastKey();
 
     }
 }
 
 /*
- * 
+ *
  * "geuqjmt"
- * 
+ *
  * "bgemoegklm"
- * 
+ *
  * [3,4,2,6,5,6,5,4,3,2]
- * 
+ *
  * My output[] = [1,2,2,2,2,2,3,2,2,2]
  * Expected [] = [1,1,2,2,2,2,2,2,2,1]
  */

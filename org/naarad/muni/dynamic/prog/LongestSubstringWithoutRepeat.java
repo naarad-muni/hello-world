@@ -1,7 +1,7 @@
-/**
+package org.naarad.muni.dynamic.prog; /**
  * Leetcode program link: https://leetcode.com/problems/longest-substring-without-repeating-characters/
- * 
  */
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +20,6 @@ class LongestSubstingWithoutRepeat {
         for (int i = 0; i < n; i++) {
             char c = s.charAt(i);
 
-           
             if (charToOccurrenceMap.containsKey(c)) {
                 int currentBreakPointIndex = charToOccurrenceMap.get(c);
                 int currentUniqueStringLength = i - currentStartIndex;
@@ -32,9 +31,10 @@ class LongestSubstingWithoutRepeat {
 
                 currentStartIndex = currentBreakPointIndex + 1;
                 charToOccurrenceMap.put(c, i);
-            } else 
+            } else {
                 charToOccurrenceMap.put(c, i);
-            
+            }
+
         }
 
         longestUniqueStringLength = Math.max(longestUniqueStringLength, (n - currentStartIndex));
@@ -44,5 +44,5 @@ class LongestSubstingWithoutRepeat {
 
     public static void main(String[] args) {
         System.out.println(LongestSubstingWithoutRepeat.lengthOfLongestSubstringWithoutRepeatingCharacter("abcabcbb"));
-    }  
+    }
 }

@@ -1,21 +1,18 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+package org.naarad.muni.dynamic.prog;
+
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/concatenated-words/
- * 
+ * <p>
  * This program is giving a Time Limit excced issue, check below link:
  * https://leetcode.com/submissions/detail/929948024/
  */
 public class ConcatenatedWords {
 
     public static void main(String[] args) {
-        String words[] = new String[] { "cat", "cats", "catsdogcats", "dog", "dogcatsdog", "hippopotamuses", "rat",
-                "ratcatdogcat" };
+        String words[] = new String[]{"cat", "cats", "catsdogcats", "dog", "dogcatsdog", "hippopotamuses", "rat",
+                "ratcatdogcat"};
 
         ConcatenatedWords sol = new ConcatenatedWords();
         List<String> concatenatedStrings = sol.findAllConcatenatedWordsInADict(words);
@@ -98,9 +95,7 @@ public class ConcatenatedWords {
                         }
                     }
                     currentRoot = subChildReference;
-                } else
-
-                {
+                } else {
                     return false;
                 }
             }

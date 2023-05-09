@@ -1,3 +1,5 @@
+package org.naarad.muni.dynamic.prog;
+
 /**
  * <a href="https://leetcode.com/problems/is-subsequence/">Problem statement link</a>
  */

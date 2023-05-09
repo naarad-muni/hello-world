@@ -1,7 +1,8 @@
+package org.naarad.muni.graph;
+
 /**
- *
  * TODO: Solution is incomplete
- *
+ * <p>
  * Leetcode practise question for graph, to find out if given graph makes a valid tree or not.
  * <p>
  * You have a graph of n nodes labeled from 0 to n - 1.
@@ -46,9 +47,6 @@ public class FindIfGraphIsTree {
             union(edges[i][0], edges[i][1]);
         }
 
-        for (int i = 0; i < ; i++) {
-
-        }
         return false;
     }
 

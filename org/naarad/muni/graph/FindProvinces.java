@@ -1,3 +1,5 @@
+package org.naarad.muni.graph;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,3 +1,5 @@
+package org.naarad.muni.dynamic.prog;
+
 /**
  * https://leetcode.com/problems/counting-bits/
  */

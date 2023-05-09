@@ -1,3 +1,5 @@
+package org.naarad.muni.dynamic.prog;
+
 /**
  * <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">Problem statement link</a>
  * Runtime Complexity = O(n)

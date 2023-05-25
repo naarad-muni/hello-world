@@ -1,11 +1,11 @@
-package org.naarad.muni.dynamic.prog;
+package org.naarad.muni.greedy;
 
 /**
  * <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/">best time to buy sell stock</a>
  */
-public class BuySellStock {
+public class BuySellStock2 {
     public static void main(String[] args) {
-        BuySellStock stock = new BuySellStock();
+        BuySellStock2 stock = new BuySellStock2();
         System.out.println(stock.maxProfit(new int[]{7, 6, 4, 3, 1}));
     }
 

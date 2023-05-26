@@ -3,10 +3,21 @@ import java.util.Comparator;
 
 public class Sample {
     public static void main(String args[]) {
-        String words[] = new String[] { "cat", "cats", "catsdogcats", "dog", "dogcatsdog", "hippopotamuses", "rat",
-                "ratcatdogcat" };
 
-        Arrays.sort(words, Comparator.comparingInt(String::length));
+        Comparator<String> decreasing = (first, second) -> {
+            if (first == null) {
+                return -1;
+            } else if (second == null) {
+                return 1;
+            } else {
+                return first.compareTo(second);
+            }
+        };
+
+        String words[] = new String[]{"cat", "cats", "catsdogcats", "dog", "dogcatsdog", "hippopotamuses", "rat",
+                "ratcatdogcat"};
+
+        Arrays.sort(words, decreasing);
         for (int i = (words.length - 1); i >= 0; i--) {
             System.out.println(words[i]);
         }

@@ -11,10 +11,7 @@ public class AllPathSourceTarget {
         AllPathSourceTarget target = new AllPathSourceTarget();
         int[][] graph = new int[][]{{2}, {}, {1}};
         List<List<Integer>> output = target.allPathsSourceTarget(graph);
-        for (:
-             ) {
-
-        }
+        
     }
 
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {

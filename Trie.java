@@ -1,5 +1,5 @@
 /**
- * https://leetcode.com/problems/implement-trie-prefix-tree/
+ * <a href="https://leetcode.com/problems/implement-trie-prefix-tree/">Prefix tree</a>
  */
 
 public class Trie {
@@ -10,7 +10,17 @@ public class Trie {
     public Trie() {
     }
 
-    public void insert(String word) {
+    public static void main(final String[] args) {
+        final Trie trie = new Trie();
+        trie.insert("apple");
+        System.out.println(trie.search("apple")); // return True
+        System.out.println(trie.search("app")); // return False
+        System.out.println(trie.startsWith("app")); // return True
+        trie.insert("app");
+        System.out.println(trie.search("app")); // return True
+    }
+
+    public void insert(final String word) {
         final int wordLength = word.length();
         Trie currentRoot = this;
 
@@ -29,7 +39,7 @@ public class Trie {
         currentRoot.isEnd = true;
     }
 
-    public boolean search(String word) {
+    public boolean search(final String word) {
         final int wordLength = word.length();
         Trie currentRoot = this;
 
@@ -52,8 +62,8 @@ public class Trie {
         }
     }
 
-    public boolean startsWith(String prefix) {
-        int prefixLength = prefix.length();
+    public boolean startsWith(final String prefix) {
+        final int prefixLength = prefix.length();
         Trie currentRoot = this;
 
         if (prefix == null || prefix.length() == 0) {
@@ -69,16 +79,6 @@ public class Trie {
         }
 
         return true;
-    }
-
-    public static void main(String args[]) {
-        Trie trie = new Trie();
-        trie.insert("apple");
-        System.out.println(trie.search("apple")); // return True
-        System.out.println(trie.search("app")); // return False
-        System.out.println(trie.startsWith("app")); // return True
-        trie.insert("app");
-        System.out.println(trie.search("app")); // return True
     }
 
 }

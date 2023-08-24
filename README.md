@@ -1,7 +1,6 @@
 # hello-world
-First repository
 
-Hi, I am not happy today, since I lost my previous github account.
+This repository has Data structure / Algorithms code.
 
-That was my mistake, but github doesnt have a mobile phone number recovery mechanism.
-And that sucks.
+1. [LC]: Mean Leetcode.
+1. Each code file has a link to the problem statement. 

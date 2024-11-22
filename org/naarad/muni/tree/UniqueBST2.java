@@ -1,9 +1,7 @@
 package org.naarad.muni.tree;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <a href="https://leetcode.com/problems/unique-binary-search-trees-ii/">Unique BST-2</a>
@@ -24,17 +22,10 @@ public class UniqueBST2 {
     }
 
     public List<TreeNode> generateTrees(int n) {
-        final Map<String, List<TreeNode>> cache = new HashMap<>();
-        return getRootNode(1, n, cache);
+        return getRootNode(1, n);
     }
 
-    private List<TreeNode> getRootNode(int rangeStart, int rangeEnd, final Map<String, List<TreeNode>> cache) {
-        String cacheKey = generateKeyFromRange(rangeStart, rangeEnd);
-
-        if (cache.containsKey(cacheKey)) {
-            return cache.get(cacheKey);
-        }
-
+    private List<TreeNode> getRootNode(int rangeStart, int rangeEnd) {
         final List<TreeNode> rootNodeList = new ArrayList<>();
         List<TreeNode> rightList;
         List<TreeNode> leftList;
@@ -45,20 +36,20 @@ public class UniqueBST2 {
         } else {
             for (int i = rangeStart; i <= rangeEnd; i++) {
                 if (i == rangeStart) {
-                    for (TreeNode rightNode : getRootNode(i + 1, rangeEnd, cache)) {
+                    for (TreeNode rightNode : getRootNode(i + 1, rangeEnd)) {
                         TreeNode root = new TreeNode(i);
                         root.right = rightNode;
                         rootNodeList.add(root);
                     }
                 } else if (i == rangeEnd) {
-                    for (TreeNode leftNode : getRootNode(rangeStart, rangeEnd - 1, cache)) {
+                    for (TreeNode leftNode : getRootNode(rangeStart, rangeEnd - 1)) {
                         TreeNode root = new TreeNode(i);
                         root.left = leftNode;
                         rootNodeList.add(root);
                     }
                 } else {
-                    leftList = getRootNode(rangeStart, i - 1, cache);
-                    rightList = getRootNode(i + 1, rangeEnd, cache);
+                    leftList = getRootNode(rangeStart, i - 1);
+                    rightList = getRootNode(i + 1, rangeEnd);
 
                     for (TreeNode leftNode : leftList) {
                         for (TreeNode rightNode : rightList) {
@@ -72,12 +63,7 @@ public class UniqueBST2 {
             }
         }
 
-        cache.put(cacheKey, rootNodeList);
         return rootNodeList;
-    }
-
-    private String generateKeyFromRange(int rangeStart, int rangeEnd) {
-        return rangeStart + "," + rangeEnd;
     }
 
     public static class TreeNode {

@@ -1,7 +1,7 @@
 package org.naarad.muni.dynamic.prog;
 
 /**
- * https://leetcode.com/problems/counting-bits/
+ * <a href="https://leetcode.com/problems/counting-bits/">[LC] Counting Bits</a>
  */
 
 public class CountingBits {
